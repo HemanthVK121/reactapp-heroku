@@ -28,6 +28,12 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <script>
+var host = "reactapp-cn.herokuapp.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+window.location.protocol = "https";
+}
+</script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
