@@ -8,7 +8,6 @@ This Project is a Simple ReactJS Project which demonstrates the following
 3. Communicating between parent and child component
 4. Using Bootstrap along with React
 5. Using Basic Routing in React
-6.test
 
 The project Template can be used to build bigger projects
 
