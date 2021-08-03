@@ -1,1 +1,5 @@
-heroku create --buildpack https://github.com/chrisanderton/heroku-buildpack-sonar-scanner.git
+sonar-scanner \
+  -Dsonar.organization=ganesh-manoharan \
+  -Dsonar.projectKey=Ganesh-manoharan_reactapp-heroku \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=https://sonarcloud.io
