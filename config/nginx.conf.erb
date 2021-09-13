@@ -1,64 +1,24 @@
-daemon off;
-# Heroku dynos have at least 4 cores
-worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
-
-events {
-    use epoll;
-    accept_mutex on;
-    worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
+upstream frontend {
+    server $FRONTEND_URL;
 }
 
-http {
-    gzip on;
-    gzip_comp_level 2;
-    gzip_min_length 512;
-    server_tokens off;
+upstream backend {
+    server $BACKEND_URL;
+}
 
-   # log_format main '$time_iso8601 - $status $request - client IP: $http_x_forwarded_for - to $upstream_addr - upstream status: $upstream_status, upstream_response_time $upstream_response_time, request_time $request_time';
-    #access_log /dev/stdout main;
-    # set the following to "debug" when diagnosing an issue
-    #error_log /dev/stdout notice;
-    #log_not_found on;
+server {
+    listen 3000;
 
-    include mime.types;
-    default_type application/octet-stream;
-    sendfile on;
-
-    # Must read the body in 5 seconds.
-    client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
-
-    # handle SNI
-    #proxy_ssl_server_name on;
-    # resolver needs to be set because we're using dynamic proxy_pass
-    #resolver 8.8.8.8;
-
-    upstream upstream_app_a {
-        server test-pipeline-dev-az.herokuapp.com:443;
+    location / {
+        proxy_pass http://test-pipeline-dev-az.herokuapp.com;
+        proxy_set_header Host $FRONTEND_URL;
     }
 
-    upstream upstream_app_b {
-        server test-pipeline-prod-az.herokuapp.com:443;
+    location /api {
+        rewrite /api/(.*) /$1 break;
+        proxy_pass http://test-pipeline-prod-az.herokuapp.com;
+        proxy_set_header Host $BACKEND_URL;
+        proxy_set_header Cookie $http_cookie;
     }
 
-    server {
-        server_name test-pipeline-dev-az.herokuapp.com;
-
-        location / {
-            set $upstream upstream_app_a;
-            proxy_pass https://$upstream;
-            #proxy_ssl_name app-a.herokuapp.com;
-            proxy_set_header x-forwarded-host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header Host test-pipeline-dev-az.herokuapp.com;
-        }
-
-        location /other {
-            set $upstream upstream_app_b;
-            proxy_pass https://$upstream;
-            #proxy_ssl_name app-b.herokuapp.com;
-            proxy_set_header x-forwarded-host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header Host test-pipeline-prod-az.herokuapp.com;
-        }
-    }
 }
