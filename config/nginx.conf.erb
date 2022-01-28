@@ -34,7 +34,7 @@ http {
 
            location / {
                 try_files $uri $uri/ /index.html?$query_string;
-                rewrite ^/$ https://test-proxy-check.herokuapp.com/en-ca;
+                #rewrite ^/$ https://test-proxy-check.herokuapp.com/en-ca;
                 }
 
         }
