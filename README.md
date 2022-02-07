@@ -1,6 +1,6 @@
 # Simple React JS Project
 
-## What is the use of this repo
+## What is the use of this repository
 
 This Project is a Simple ReactJS Project which demonstrates the following
 1. Creating a Component in React
