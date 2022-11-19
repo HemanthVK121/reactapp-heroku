@@ -18,7 +18,7 @@ jobs:
       run: echo "test run"
 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: test
     environment: 
       name: test-job-checker
