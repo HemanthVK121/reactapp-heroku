@@ -1,0 +1,49 @@
+name: "Release-pre-checks"
+
+on:
+  push:
+    branches: [ "main-pre-checks" ]
+  pull_request:
+    branches: [ "main-pre-checks" ]
+
+jobs:
+  Vulnerability-checks:
+    name: Vulnerability checks
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
+
+  Package-version-checks:
+     name: Package version checks
+     needs: Vulnerability-checks
+     runs-on: ubuntu-latest
+     steps:
+      - uses: actions/checkout@v2
+
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
+  
