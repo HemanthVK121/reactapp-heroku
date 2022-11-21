@@ -9,19 +9,17 @@ on:
 jobs:
   Package-version-checks:
     name: Package version checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-    - name: Check if version has been updated
-      id: check
-      uses: EndBug/version-check@v2
-      with:
-         Default: package.json
+            - name: Check out repository
+              uses: actions/checkout@v2
 
-    - name: Log when changed
-      if: steps.check.outputs.changed == 'true'
-      run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+            - name: Check package version
+              id: cpv
+              uses: PostHog/check-package-version@v2
 
-    - name: Log when unchanged
-      if: steps.check.outputs.changed == 'false'
-      run: 'echo "No version change :/"'
+            - name: Echo versions
+              run: |
+                  echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+                  echo "Published version: ${{ steps.cpv.outputs.published-version }}"
   
