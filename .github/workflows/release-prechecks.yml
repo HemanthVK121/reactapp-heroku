@@ -15,7 +15,7 @@ jobs:
       id: check
       uses: EndBug/version-check@v2
       with:
-         file-name: ./package.json
+         Default: package.json
 
     - name: Log when changed
       if: steps.check.outputs.changed == 'true'
