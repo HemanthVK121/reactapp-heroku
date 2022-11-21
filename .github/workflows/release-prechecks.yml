@@ -7,51 +7,15 @@ on:
     branches: [ "main-pre-checks" ]
 
 jobs:
-  Vulnerability-checks:
-    name: Vulnerability checks
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'javascript' ]
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
-
   Package-version-checks:
     name: Package version checks
-    needs: Vulnerability-checks
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
         
       - name: Check package version
-        id: cpv
-        uses: PostHog/check-package-version@v2
-
-      - name: Echo output
-        run: |
-            echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
-            echo "Published version: ${{ steps.cpv.outputs.published-version }}"
-            echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+        uses: technote-space/package-version-check-action@v1
+        with:
+          COMMIT_DISABLED: 1
   
