@@ -42,15 +42,5 @@ jobs:
     needs: Vulnerability-checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: git fetch --all --tags
-      - name: Check Release Version
-        uses: thebongy/version-check@v1
-        with:
-          file: package.json
-          tagFormat: v${version}-beta
-        id: version_check_staging
-      - name: show versions
-        run: |
-          echo "Version ${{steps.version_check_staging.outputs.releaseVersion}}"
+     - uses: nyaa8/package-version@v1
   
