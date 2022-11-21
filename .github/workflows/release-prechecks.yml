@@ -42,5 +42,16 @@ jobs:
     needs: Vulnerability-checks
     runs-on: ubuntu-latest
     steps:
-     - uses: nyaa8/package-version@v1
+      - name: Check out repository
+        uses: actions/checkout@v2
+        
+      - name: Check package version
+        id: cpv
+        uses: PostHog/check-package-version@v2
+
+      - name: Echo output
+        run: |
+            echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+            echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+            echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
   
