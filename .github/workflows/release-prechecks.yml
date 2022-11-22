@@ -10,6 +10,9 @@ jobs:
   Package-version-checks:
     runs-on: ubuntu-latest
     name: Package version checks
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
     - name: Package version checks
       run: |
