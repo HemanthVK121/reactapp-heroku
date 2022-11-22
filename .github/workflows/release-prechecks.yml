@@ -7,10 +7,11 @@ on:
     branches: [ "main-pre-checks" ]
 
 jobs:
-  test_released_job:
+  Package-version-checks:
     runs-on: ubuntu-latest
-    name: A job to test the latest released ncu-action
+    name: Package version checks
     steps:
-    - name: Test the released step
-      id: test_released
-      uses: fzwael/ncu-action@v1
+    - name: Package version checks
+      run: |
+         npm install
+         npm outdated
