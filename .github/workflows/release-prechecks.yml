@@ -9,17 +9,13 @@ on:
 jobs:
   Package-version-checks:
     name: Package version checks
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
             - name: Check out repository
               uses: actions/checkout@v2
-
             - name: Check package version
-              id: cpv
-              uses: PostHog/check-package-version@v2
-
-            - name: Echo versions
-              run: |
-                  echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
-                  echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+              run: npm list
   
