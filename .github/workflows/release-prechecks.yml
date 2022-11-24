@@ -12,6 +12,6 @@ jobs:
     steps:
       - name: Testing for public javascript library vulnerabilities 
         run: | 
-          npm i
+          npm install
           npm audit
       
