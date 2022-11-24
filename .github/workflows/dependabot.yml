@@ -1,0 +1,12 @@
+# Specify a non-default branch for pull requests for pip
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "13:30"
+    target-branch: "main-pre-launch-checks"
+    # Labels on pull requests for security and version updates
+    labels:
