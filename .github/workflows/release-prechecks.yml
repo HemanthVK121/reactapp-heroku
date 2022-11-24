@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Testing for public javascript library vulnerabilities 
-        uses: mattorb/is-website-vulnerable@github-action_v1
-        with:
-          scan-url: "https://mattorb.com"
-
+        run: | 
+          npm i
+          npm audit
       
