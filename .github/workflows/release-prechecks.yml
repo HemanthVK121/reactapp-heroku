@@ -3,15 +3,15 @@ name: "Release-pre-checks"
 on:
   push:
     branches: [ "main-pre-checks" ]
-  pull_request:
-    branches: [ "main-pre-checks" ]
+
 
 jobs:
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Testing for public javascript library vulnerabilities 
-        run: | 
-          npm install
-          npm audit
+  security-check:
+     name: security check-npm
+     runs-on: ubuntu-latest
+     steps:
+      - name: security check
+        run: |
+           npm install
+           npm audit
       
