@@ -7,14 +7,12 @@ on:
     branches: [ "main-pre-checks" ]
 
 jobs:
-  Package-version-checks:
+  security:
     runs-on: ubuntu-latest
-    name: Package version checks
-
     steps:
-      - name: Perform Scan
-        uses: ShiftLeftSecurity/scan-action@master
+      - name: Testing for public javascript library vulnerabilities 
+        uses: mattorb/is-website-vulnerable@github-action_v1
         with:
-            type: "java,nodejs,reactjs"
+          scan-url: "https://mattorb.com"
 
       
