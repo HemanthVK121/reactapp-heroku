@@ -12,6 +12,8 @@ jobs:
      steps:
       - name: security check
         run: |
+           ls -al
+           pwd
            rm -r package.json package-lock.json
            npm init
            npm install
