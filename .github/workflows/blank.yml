@@ -7,15 +7,12 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main-pre-launch-checks ]
-
-  workflow_dispatch:
-
 jobs:
   test-job:
     runs-on: ubuntu-latest
     steps:
     - name: test run
       run: |
-         ls -al
+         ls -al /home/runner/work/reactapp-heroku/
          npm install
          npm audit
