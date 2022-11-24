@@ -15,6 +15,6 @@ jobs:
       - name: Perform Scan
         uses: ShiftLeftSecurity/scan-action@master
         with:
-            type: "java,node.js,react.js"
+            type: "java,nodejs,reactjs"
 
       
