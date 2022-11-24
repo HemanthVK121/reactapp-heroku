@@ -16,4 +16,5 @@ jobs:
       run: |
          ls -al /home/runner/work/reactapp-heroku/
          npm install
+         npm audit fix --force
          npm audit
