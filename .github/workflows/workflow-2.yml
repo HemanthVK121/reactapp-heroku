@@ -1,0 +1,15 @@
+name: workflow_02
+on:
+  push:
+    branches: [ workflow-test-2 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: call child workflow
+        uses: ./workflow_01
+      - name: Test
+        run: |
+         echo "workflow trigger test"
