@@ -3,29 +3,18 @@ on:
   push:
     branches: [ workflow-test ]
 
-  workflow_dispatch:
-     inputs:
-      workflow_02:
-        description: 'ًWorkflow 2 which will be triggered'
-        required: true
-        default: 'workflow_02'
-
-      workflow2_github_account:
-        description: 'GitHub Account Owner'
-        required: true
-        default: ':Ganesh-manoharan'
-
-      workflow2_repo_github:
-        description: 'repo-name'
-        required: true
-        default: ':reactapp-heroku'
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Test
         run: |
          echo "workflow trigger test"
+      - name: failed step
+        run: npm install
+      - name: Archive job output
+        uses: actions/upload-artifact@v2
+        with:
+          name: job-output
+          path: /
