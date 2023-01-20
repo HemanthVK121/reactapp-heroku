@@ -8,8 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: call child workflow
-        uses: ./workflow_01
+      - name: Call child workflow
+        run: |
+           echo "Calling child workflow"
+           ${{ steps.workflow_02.outputs.child_output }}
       - name: Test
         run: |
          echo "workflow trigger test"
