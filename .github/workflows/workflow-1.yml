@@ -19,4 +19,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: job-output
+          repository: Ganesh-manoharan/reactapp-heroku
+          ref: v1.0.0
           path: output.log
