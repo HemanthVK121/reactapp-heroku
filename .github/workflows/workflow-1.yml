@@ -12,11 +12,11 @@ jobs:
         run: |
          echo "workflow trigger test"
       - name: failed step
-        run: echo "test"
+        run: echo "test" >> output.log
       - name: create folder
-        run: mkdir app
+        run: mkdir app >> output.log
       - name: Archive job output
         uses: actions/upload-artifact@v2
         with:
           name: job-output
-          path: app/
+          path: output.log
