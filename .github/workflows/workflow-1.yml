@@ -13,8 +13,10 @@ jobs:
          echo "workflow trigger test"
       - name: failed step
         run: echo "test"
+      - name: create folder
+        run: mkdir app
       - name: Archive job output
         uses: actions/upload-artifact@v2
         with:
           name: job-output
-          path: /
+          path: app/
