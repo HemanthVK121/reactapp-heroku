@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Call other workflow
-        uses: ./.github/workflows/workflow-1.yml
+        uses: Ganesh-manoharan/reactapp-heroku/actions/workflows/workflow-1.yml
         with:
           event: push
       - name: Call child workflow
