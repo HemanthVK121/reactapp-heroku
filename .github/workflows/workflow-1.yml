@@ -12,7 +12,7 @@ jobs:
         run: |
          echo "workflow trigger test"
       - name: failed step
-        run: npm install
+        run: echo "test"
       - name: Archive job output
         uses: actions/upload-artifact@v2
         with:
