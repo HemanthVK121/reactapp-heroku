@@ -19,9 +19,15 @@ jobs:
       - name: create folder
         run: mkdir app >> output.log
       - name: Archive job output
+        id: logs
         uses: actions/upload-artifact@v2
         with:
           name: job-output
           repository: Ganesh-manoharan/reactapp-heroku
           ref: v1.0.0
           path: output.log
+      - name: Download logs
+        uses: actions/download-logs-action@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ steps.logs.outputs.log }}
