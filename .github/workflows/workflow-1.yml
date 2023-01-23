@@ -14,5 +14,3 @@ jobs:
       - name: Check workflow status
         run: |
              echo "test run"
-             npm install
-             php artisan migrate:refresh
