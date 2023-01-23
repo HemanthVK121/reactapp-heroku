@@ -24,6 +24,7 @@ jobs:
       - name: Get pre-check status
         run: |
             echo "Get status of the pre-checks"
+            echo $WORKFLOW_ID
             curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/Ganesh-manoharan/reactapp-heroku/actions/workflows/$WORKFLOW_ID/runs | sed -n '1,20p' > runs.txt
             grep '"conclusion":' runs.txt > runs1.txt
             sed -i 's/      "conclusion": "//g' runs1.txt && sed -i 's/",//g' runs1.txt
