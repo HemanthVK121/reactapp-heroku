@@ -17,10 +17,10 @@ jobs:
           echo $(curl https://api.github.com/repos/Ganesh-manoharan/reactapp-heroku/actions/workflows) | jq . > id.txt
           grep -B 3 '"name": "workflow_01"' id.txt > id1.txt && grep '"id"' id1.txt > id2.txt
           sed -i 's/      "id": //g' id2.txt && sed 's/,//g' id2.txt > id3.txt
-          WORKFLOW_ID=$(cat id3.txt)
-          echo "workflow id is $WORKFLOW_ID"
-          echo $WORKFLOW_ID
           echo "Getting workflow id process completed"
+      - name: Get pre-checks reults
+        run: |
+          WORKFLOW_ID=$(cat id3.txt)
           echo "Get status of the pre-checks"
           echo $WORKFLOW_ID
           curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/Ganesh-manoharan/reactapp-heroku/actions/workflows/$WORKFLOW_ID/runs | sed -n '1,20p' > runs.txt
