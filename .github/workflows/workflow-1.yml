@@ -13,7 +13,4 @@ jobs:
           fetch-depth: 0
       - name: Check workflow status
         run: |
-             WORKFLOW_ID=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{github.repository}}/actions/workflows/46005717/runs | jq -r '.[0].id')
-             echo "Workflow ID: $WORKFLOW_ID"
-             STATUS=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{github.repository}}/actions/runs/$WORKFLOW_ID | jq -r '.status')
-             echo "Workflow Status: $STATUS"
+             echo "test run"
