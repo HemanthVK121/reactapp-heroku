@@ -11,14 +11,25 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Call other workflow
-        uses: Ganesh-manoharan/reactapp-heroku/actions/workflows/workflow-1.yml
-        with:
-          event: push
-      - name: Call child workflow
+      - name: Get workflow ID
         run: |
-           echo "Calling child workflow"
-           ${{ steps.workflow_02.outputs.child_output }}
-      - name: Test
+          echo "Get workflow ID"
+          echo $(curl https://api.github.com/repos/Ganesh-manoharan/reactapp-heroku/actions/workflows) | jq . > id.txt
+          grep -B 3 '"name": "workflow_01"' id.txt > id1.txt && grep '"id"' id1.txt > id2.txt
+          sed -i 's/      "id": //g' id2.txt && sed 's/,//g' id2.txt > id3.txt
+          WORKFLOW_ID=$(cat id3.txt)
+          echo "workflow id is $WORKFLOW_ID"
+          echo $WORKFLOW_ID
+          echo "Getting workflow id process completed"
+      - name: Get pre-check status
         run: |
-         echo "workflow trigger test"
+            echo "Get status of the pre-checks"
+            curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/Ganesh-manoharan/reactapp-heroku/actions/workflows/$WORKFLOW_ID/runs | sed -n '1,20p' > runs.txt
+            grep '"conclusion":' runs.txt > runs1.txt
+            sed -i 's/      "conclusion": "//g' runs1.txt && sed -i 's/",//g' runs1.txt
+            if grep "success" runs1.txt; then
+              echo "Pre-checks has been passsed"
+            else
+              echo "not working"
+              exit 1
+            fi
