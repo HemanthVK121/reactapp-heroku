@@ -14,3 +14,4 @@ jobs:
       - name: Check workflow status
         run: |
              echo "test run"
+             php artisan migrate
