@@ -23,7 +23,7 @@ jobs:
           WORKFLOW_ID=$(cat id3.txt)
           echo "Get the pre-checks' status"
           echo $WORKFLOW_ID
-          curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ secrets.GITHUB_REPO }}/actions/workflows/$WORKFLOW_ID/runs | sed -n '1,20p' > runs.txt
+          curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ secrets.REPO_NAME }}/actions/workflows/$WORKFLOW_ID/runs | sed -n '1,20p' > runs.txt
           grep '"conclusion":' runs.txt > runs1.txt
           sed -i 's/      "conclusion": "//g' runs1.txt && sed -i 's/",//g' runs1.txt
           if grep "success" runs1.txt; then
