@@ -1,0 +1,15 @@
+name: workflow_01
+on:
+  push:
+    branches: [ workflow-test ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Show workflow id
+        run: echo ${{github.workflow}}
