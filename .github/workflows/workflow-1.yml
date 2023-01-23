@@ -1,7 +1,7 @@
 name: workflow_01
 on:
   push:
-    branches: [ workflow-test1 ]
+    branches: [ workflow-test ]
 
 jobs:
   build:
