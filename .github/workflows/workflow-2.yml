@@ -14,8 +14,9 @@ jobs:
           
       - name: Get workflow ID
         run: |   
-          echo ${{ secrets.WORKFLOW_NAME }}
-          echo ${{ secrets.REPO_NAME }}
+          echo ${{ secrets.WORKFLOW_NAME }} >> test.txt
+          echo ${{ secrets.REPO_NAME }} >> test.txt
+          cat test.txt
       - name: Get workflow ID
         run: |
           echo "Find the workflow ID"
